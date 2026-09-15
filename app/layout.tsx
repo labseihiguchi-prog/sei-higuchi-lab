@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   },
   alternates: { canonical: "/" },
   icons: { icon: "/images/logo.png", apple: "/images/logo.png" },
+  verification: { google: "--2NB8f82EdaozclLNjJOxfEk1QEG7BwqIsiJXYcZB8" },
 };
 
 export const viewport: Viewport = { themeColor: "#FFFFFF", colorScheme: "light" };
