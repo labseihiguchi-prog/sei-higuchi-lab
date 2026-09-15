@@ -6,11 +6,13 @@ import { NewsTimeline } from "@/components/news-timeline";
 import { PageContainer } from "@/components/page-container";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { newsItems } from "@/data/news";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "News & Updates",
+export const metadata: Metadata = createPageMetadata({
+  title: "News & Updates | Sei Higuchi Lab",
   description: "News, publications, conferences, awards, student updates, and milestones from the Sei Higuchi Lab.",
-};
+  path: "/news",
+});
 
 export default function NewsPage() {
   return (

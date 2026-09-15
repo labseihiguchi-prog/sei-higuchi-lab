@@ -238,9 +238,7 @@ export const principalInvestigator = people.find(
   (person) => person.category === "Principal Investigator",
 ) as LabMember;
 
-export const profileMembers = people.filter(
-  (person) => person.category !== "Principal Investigator",
-);
+export const profileMembers = people;
 
 export const mastersAlumniWithoutProfiles = [
   { name: "Daniel Madtes", role: "Master's Alumni", image: "/images/people/daniel-madtes.png", imagePosition: "50% 32%" },

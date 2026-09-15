@@ -6,6 +6,8 @@ import { ArrowLeft, BookOpen, Coffee, FlaskConical, Mail } from "lucide-react";
 import { PageContainer } from "@/components/page-container";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { getProfileMemberBySlug, profileMembers } from "@/data/people";
+import { createPageMetadata } from "@/lib/seo";
+import { siteUrl } from "@/lib/site";
 
 type ProfilePageProps = {
   params: Promise<{ slug: string }>;
@@ -17,6 +19,33 @@ export function generateStaticParams() {
   return profileMembers.map((person) => ({ slug: person.slug }));
 }
 
+function summarizeProfile(text: string, maxLength = 160) {
+  if (text.length <= maxLength) return text;
+  const shortened = text.slice(0, maxLength - 1);
+  return `${shortened.slice(0, shortened.lastIndexOf(" "))}…`;
+}
+
+function getProfileSeo(person: (typeof profileMembers)[number]) {
+  if (person.slug === "sei-higuchi") {
+    return {
+      title: "Sei Higuchi, PhD | Principal Investigator | Sei Higuchi Lab",
+      description: "Sei Higuchi, PhD, is an Assistant Professor at St. John’s University and Principal Investigator of the Sei Higuchi Lab, studying bile acids, metabolism, appetite, obesity, and metabolic disease.",
+    };
+  }
+
+  if (person.slug === "mais-alkyam") {
+    return {
+      title: "Mais Alkyam | Toxicology PhD Student | Sei Higuchi Lab",
+      description: "Mais Alkyam is a Toxicology PhD student at St. John’s University whose research combines toxicology, metabolism, and molecular biology to study metabolic disease.",
+    };
+  }
+
+  return {
+    title: `${person.name} | ${person.role} | Sei Higuchi Lab`,
+    description: summarizeProfile(person.biography),
+  };
+}
+
 export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {
   const { slug } = await params;
   const person = getProfileMemberBySlug(slug);
@@ -25,10 +54,12 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
     return { title: "Profile Not Found" };
   }
 
-  return {
-    title: person.name,
-    description: `${person.name}, ${person.role} in the Sei Higuchi Lab at St. John's University.`,
-  };
+  const seo = getProfileSeo(person);
+  return createPageMetadata({
+    ...seo,
+    path: `/people/${person.slug}`,
+    image: person.image,
+  });
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
@@ -39,8 +70,46 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     notFound();
   }
 
+  const seo = getProfileSeo(person);
+  const profileUrl = new URL(`/people/${person.slug}`, siteUrl).toString();
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    url: profileUrl,
+    name: seo.title,
+    description: seo.description,
+    mainEntity: {
+      "@type": "Person",
+      name: person.slug === "sei-higuchi" ? "Sei Higuchi" : person.name,
+      ...(person.slug === "sei-higuchi" ? { honorificSuffix: "PhD" } : {}),
+      jobTitle: person.role,
+      description: seo.description,
+      url: profileUrl,
+      image: new URL(person.image, siteUrl).toString(),
+      ...(person.email ? { email: `mailto:${person.email}` } : {}),
+      memberOf: {
+        "@type": "ResearchOrganization",
+        name: "Sei Higuchi Lab",
+        url: siteUrl.toString(),
+      },
+      ...(person.slug === "sei-higuchi"
+        ? {
+            affiliation: {
+              "@type": "CollegeOrUniversity",
+              name: "St. John’s University",
+              url: "https://www.stjohns.edu/",
+            },
+          }
+        : {}),
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
+      />
       <section className="border-b border-[#D8E5FF] bg-gradient-to-b from-[#F4F8FF] to-white py-16 sm:py-20 lg:py-24">
         <PageContainer>
           <Link

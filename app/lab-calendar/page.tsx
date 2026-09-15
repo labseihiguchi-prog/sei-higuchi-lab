@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import { LabCalendar } from "@/components/lab-calendar";
 import { MotionReveal } from "@/components/motion-reveal";
 import { PageContainer } from "@/components/page-container";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Lab Calendar", description: "Birthdays, conferences, presentations, milestones, and events from the Sei Higuchi Lab." };
+export const metadata: Metadata = createPageMetadata({
+  title: "Lab Calendar | Sei Higuchi Lab",
+  description: "Birthdays, conferences, presentations, milestones, and events from the Sei Higuchi Lab.",
+  path: "/lab-calendar",
+});
 
 export default function LabCalendarPage() {
   return <>

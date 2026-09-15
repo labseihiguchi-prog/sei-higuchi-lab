@@ -7,11 +7,14 @@ import { MotionReveal } from "@/components/motion-reveal";
 import { PageContainer } from "@/components/page-container";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { featuredLabEvent, labEvents } from "@/data/lab-events";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Life in the Lab",
+export const metadata: Metadata = createPageMetadata({
+  title: "Life in the Lab | Sei Higuchi Lab",
   description: "Conferences, achievements, celebrations, and everyday moments from the Sei Higuchi Lab at St. John’s University.",
-};
+  path: "/life-in-the-lab",
+  image: featuredLabEvent.heroImage.src,
+});
 
 export default function LifeInTheLabPage() {
   return (

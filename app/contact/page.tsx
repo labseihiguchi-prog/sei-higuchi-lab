@@ -11,6 +11,7 @@ import { ContactForm } from "@/components/contact-form";
 import { MotionReveal } from "@/components/motion-reveal";
 import { PageContainer } from "@/components/page-container";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { createPageMetadata } from "@/lib/seo";
 
 const faqs = [
   { question: "How can I contact the Sei Higuchi Lab?", answer: "Email the lab at labseihiguchi@gmail.com with a concise description of your inquiry." },
@@ -19,10 +20,12 @@ const faqs = [
   { question: "Can researchers propose a collaboration?", answer: "The lab welcomes thoughtful scientific conversations. Collaboration scope, timing, resources, and feasibility must be discussed directly and are not implied by this contact page." },
 ];
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Contact the Sei Higuchi Lab in the Department of Pharmaceutical Sciences at St. John's University in Queens, New York.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "Contact | Sei Higuchi Lab",
+  description: "Contact the Sei Higuchi Lab in the Department of Pharmaceutical Sciences at St. John’s University in Queens, New York.",
+  path: "/contact",
+  image: "/images/contact/queens-campus.jpg",
+});
 
 export default function ContactPage() {
   return (

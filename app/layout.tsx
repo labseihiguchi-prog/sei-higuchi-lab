@@ -6,8 +6,8 @@ import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
-  title: { default: "Sei Higuchi Lab | St. John's University", template: "%s | Sei Higuchi Lab" },
-  description: "The Sei Higuchi Lab at St. John's University investigates bile acids, metabolism, appetite regulation, obesity, and metabolic disease.",
+  title: { default: "Sei Higuchi Lab | Metabolism & Bile Acid Research", template: "%s | Sei Higuchi Lab" },
+  description: "The Sei Higuchi Lab at St. John’s University investigates bile acid biology, metabolism, appetite regulation, obesity, and metabolic disease.",
   applicationName: "Sei Higuchi Lab",
   authors: [{ name: "Sei Higuchi Lab" }],
   creator: "Sei Higuchi Lab",
@@ -17,16 +17,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Sei Higuchi Lab",
-    title: "Sei Higuchi Lab | St. John's University",
-    description: "Researching bile acid signaling, metabolism, appetite regulation, obesity, and metabolic disease.",
-    images: [{ url: "/images/dr-higuchi.jpg", width: 1920, height: 1280, alt: "Dr. Sei Higuchi on the St. John's University campus." }],
+    title: "Sei Higuchi Lab | Metabolism & Bile Acid Research",
+    description: "The Sei Higuchi Lab at St. John’s University investigates bile acid biology, metabolism, appetite regulation, obesity, and metabolic disease.",
+    url: "/",
+    images: [{ url: "/images/home/lab-research-team.jpg", alt: "Members of the Sei Higuchi Lab conducting research." }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sei Higuchi Lab | St. John's University",
-    description: "Researching bile acid signaling, metabolism, appetite regulation, obesity, and metabolic disease.",
-    images: ["/images/dr-higuchi.jpg"],
+    title: "Sei Higuchi Lab | Metabolism & Bile Acid Research",
+    description: "The Sei Higuchi Lab at St. John’s University investigates bile acid biology, metabolism, appetite regulation, obesity, and metabolic disease.",
+    images: ["/images/home/lab-research-team.jpg"],
   },
+  alternates: { canonical: "/" },
   icons: { icon: "/images/logo.png", apple: "/images/logo.png" },
 };
 

@@ -5,11 +5,13 @@ import { PublicationAuthors, PublicationCitation, PublicationLinks } from "@/com
 import { PublicationsExplorer } from "@/components/publications-explorer";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { publications } from "@/data/publications";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Publications",
+export const metadata: Metadata = createPageMetadata({
+  title: "Publications | Sei Higuchi Lab",
   description: "Peer-reviewed publications from the Sei Higuchi Lab and collaborators in bile acid biology, metabolism, obesity, intestinal lipid sensing, inflammation, and neuroscience.",
-};
+  path: "/publications",
+});
 
 export default function PublicationsPage() {
   const featuredPublication = publications.find((publication) => publication.featured);

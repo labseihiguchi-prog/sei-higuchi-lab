@@ -19,6 +19,7 @@ import Link from "next/link";
 import { MotionReveal } from "@/components/motion-reveal";
 import { PageContainer } from "@/components/page-container";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { createPageMetadata } from "@/lib/seo";
 
 const workflow = [
   { icon: Search, title: "Basic Discovery", description: "Identify biological questions and signaling pathways." },
@@ -44,10 +45,12 @@ const collaborationTypes = [
   { icon: Factory, title: "Industry", description: "Translational perspectives that support therapeutic innovation." },
 ];
 
-export const metadata: Metadata = {
-  title: "Research",
+export const metadata: Metadata = createPageMetadata({
+  title: "Research | Sei Higuchi Lab",
   description: "Explore Sei Higuchi Lab research in bile acid biology, appetite regulation, obesity, metabolic disease, and translational therapeutics.",
-};
+  path: "/research",
+  image: "/images/research/lab-researcher.jpg",
+});
 
 export default function ResearchPage() {
   return (
@@ -131,7 +134,7 @@ export default function ResearchPage() {
         </PageContainer>
       </section>
 
-      <section className="border-y border-[#D8E5FF] bg-[#F4F8FF] py-24 sm:py-32 lg:py-40">
+      <section id="collaborations" className="scroll-mt-24 border-y border-[#D8E5FF] bg-[#F4F8FF] py-24 sm:py-32 lg:py-40">
         <PageContainer>
           <ScrollReveal className="max-w-3xl">
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#1E40AF]">Collaborations</p>

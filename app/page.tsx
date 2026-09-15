@@ -7,6 +7,7 @@ import { PageContainer } from "@/components/page-container";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { Activity, FlaskConical, Microscope, Utensils } from "lucide-react";
 import { BirthdayCelebration } from "@/components/birthday-celebration";
+import { createPageMetadata } from "@/lib/seo";
 
 const focusAreas = ["Bile Acid Biology", "Metabolic Disease", "Appetite Regulation", "Drug Discovery"];
 
@@ -19,10 +20,11 @@ const researchAreas = [
 
 const careerTimeline = ["Fukuoka University", "Kyoto University", "Columbia University", "St. John's University"];
 
-export const metadata: Metadata = {
-  title: { absolute: "Sei Higuchi Lab | St. John's University" },
-  description: "The Sei Higuchi Lab investigates how bile acids regulate metabolism, appetite, obesity, and metabolic disease.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "Sei Higuchi Lab | Metabolism & Bile Acid Research",
+  description: "The Sei Higuchi Lab at St. John’s University investigates bile acid biology, metabolism, appetite regulation, obesity, and metabolic disease.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (

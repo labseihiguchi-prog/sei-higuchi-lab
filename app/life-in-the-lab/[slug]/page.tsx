@@ -7,6 +7,7 @@ import { EventPhotoGallery } from "@/components/event-photo-gallery";
 import { PageContainer } from "@/components/page-container";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { getLabEventBySlug, labEvents } from "@/data/lab-events";
+import { createPageMetadata } from "@/lib/seo";
 
 type EventPageProps = {
   params: Promise<{ slug: string }>;
@@ -26,10 +27,12 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
     return { title: "Event Not Found" };
   }
 
-  return {
-    title: event.title,
+  return createPageMetadata({
+    title: `${event.title} | Sei Higuchi Lab`,
     description: event.shortDescription,
-  };
+    path: `/life-in-the-lab/${event.slug}`,
+    image: event.heroImage.src,
+  });
 }
 
 export default async function LabEventPage({ params }: EventPageProps) {

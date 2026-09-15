@@ -69,8 +69,10 @@ const applicationSteps = [
 ];
 
 export const metadata: Metadata = {
-  title: "Join Us",
+  title: { absolute: "Join Us | Sei Higuchi Lab" },
   description: "Learn about graduate, undergraduate, visiting researcher, and collaboration pathways with the Sei Higuchi Lab.",
+  alternates: { canonical: "/join-us" },
+  robots: { index: false, follow: false, nocache: true },
 };
 
 export default function JoinUsPage() {

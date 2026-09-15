@@ -23,6 +23,7 @@ import {
   undergraduateAlumniWithPortraits,
   type LabMember,
 } from "@/data/people";
+import { createPageMetadata } from "@/lib/seo";
 
 const timeline = [
   "Fukuoka University",
@@ -79,10 +80,12 @@ const undergraduateAlumniCards: Array<LabMember | SimplePerson> = [
   undergraduateAlumniWithPortraits[1],
 ];
 
-export const metadata: Metadata = {
-  title: "People",
-  description: "Meet the scientists and students behind the Sei Higuchi Lab at St. John's University.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "People | Sei Higuchi Lab",
+  description: "Meet the scientists and students behind the Sei Higuchi Lab at St. John’s University.",
+  path: "/people",
+  image: "/images/dr-higuchi.jpg",
+});
 
 type PeopleGridProps = {
   id: string;
