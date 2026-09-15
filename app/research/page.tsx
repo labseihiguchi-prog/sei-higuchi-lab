@@ -98,16 +98,14 @@ export default function ResearchPage() {
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#1E40AF]">Research Workflow</p>
             <h2 className="mt-5 text-balance text-4xl font-semibold tracking-[-0.045em] text-[#0B1739] sm:text-5xl">A connected path from question to impact.</h2>
           </ScrollReveal>
-          <ol className="mt-16 grid gap-4 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] lg:items-stretch">
+          <ol className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-stretch">
             {workflow.map((stage, index) => (
-              <li key={stage.title} className="contents">
-                <ScrollReveal delay={index * 0.08} className="rounded-[24px] border border-[#D8E5FF] bg-white p-7 shadow-[0_8px_30px_rgba(11,23,57,0.05)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#1E40AF]/30 hover:shadow-[0_18px_42px_rgba(30,64,175,0.08)] motion-reduce:transform-none motion-reduce:transition-none">
+              <li key={stage.title}>
+                <ScrollReveal delay={index * 0.08} className="h-full rounded-[24px] border border-[#D8E5FF] bg-white p-7 shadow-[0_8px_30px_rgba(11,23,57,0.05)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#1E40AF]/30 hover:shadow-[0_18px_42px_rgba(30,64,175,0.08)] motion-reduce:transform-none motion-reduce:transition-none">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F4F8FF] text-[#1E40AF]"><stage.icon size={23} strokeWidth={1.6} aria-hidden="true" /></div>
-                  <p className="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-[#1E40AF]">Stage {index + 1}</p>
-                  <h3 className="mt-2 text-lg font-semibold text-[#0B1739]">{stage.title}</h3>
+                  <h3 className="mt-6 text-lg font-semibold text-[#0B1739]">{stage.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-[#34435E]">{stage.description}</p>
                 </ScrollReveal>
-                {index < workflow.length - 1 && <span aria-hidden="true" className="flex items-center justify-center py-1 text-xl text-[#1E40AF] lg:px-1 lg:py-0"><span className="lg:hidden">&darr;</span><span className="hidden lg:inline">&rarr;</span></span>}
               </li>
             ))}
           </ol>

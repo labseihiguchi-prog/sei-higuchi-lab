@@ -57,7 +57,7 @@ export const people: LabMember[] = [
     slug: "mais-alkyam",
     role: "Ph.D. Student — Toxicology",
     category: "Graduate Researchers",
-    email: "maisalkyam24@my.stjohns.edu",
+    email: "mais.alkyam24@my.stjohns.edu",
     image: "/images/people/mais-alkyam.jpg",
     imagePosition: "50% 38%",
     researchInterests:

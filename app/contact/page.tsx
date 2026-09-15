@@ -15,7 +15,7 @@ import { createPageMetadata } from "@/lib/seo";
 
 const faqs = [
   { question: "How can I contact the Sei Higuchi Lab?", answer: "Email the lab at labseihiguchi@gmail.com with a concise description of your inquiry." },
-  { question: "Where is St. John's University located?", answer: "The University's Queens campus is located at 8000 Utopia Parkway, Queens, NY 11439. A lab-specific building and room number have not yet been listed." },
+  { question: "Where is St. John's University located?", answer: "The Sei Higuchi Lab is in St. Albert Hall, Room B61, on the University's Queens campus at 8000 Utopia Parkway, Queens, NY 11439." },
   { question: "Can prospective students send an inquiry?", answer: "Yes. Prospective students may prepare a concise introduction describing their background and interests, but current openings, eligibility, funding, and placement are not guaranteed." },
   { question: "Can researchers propose a collaboration?", answer: "The lab welcomes thoughtful scientific conversations. Collaboration scope, timing, resources, and feasibility must be discussed directly and are not implied by this contact page." },
 ];
@@ -61,17 +61,23 @@ export default function ContactPage() {
                 <div className="flex items-start gap-4">
                   <MapPin size={22} className="mt-1 shrink-0 text-[#1E40AF]" strokeWidth={1.6} aria-hidden="true" />
                   <div className="text-sm leading-7 text-[#34435E]">
-                    <p className="font-semibold text-[#0B1739]">Queens Campus</p>
+                    <p className="font-semibold text-[#0B1739]">St. Albert Hall</p>
+                    <p>Room B61</p>
                     <p>8000 Utopia Parkway</p>
                     <p>Queens, NY 11439</p>
                   </div>
                 </div>
-                <a href="mailto:labseihiguchi@gmail.com" className="mt-6 flex items-center gap-4 text-sm font-semibold text-[#1E40AF] underline decoration-[#BFD3FB] underline-offset-4 transition-colors hover:text-[#17358F] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF]">
-                  <Mail size={22} className="shrink-0" strokeWidth={1.6} aria-hidden="true" />
-                  labseihiguchi@gmail.com
-                </a>
+                <div className="mt-6 space-y-3">
+                  <a href="mailto:labseihiguchi@gmail.com" className="flex items-center gap-4 text-sm font-semibold text-[#1E40AF] underline decoration-[#BFD3FB] underline-offset-4 transition-colors hover:text-[#17358F] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF]">
+                    <Mail size={22} className="shrink-0" strokeWidth={1.6} aria-hidden="true" />
+                    labseihiguchi@gmail.com
+                  </a>
+                  <a href="mailto:higuchis@stjohns.edu" className="flex items-center gap-4 text-sm font-semibold text-[#1E40AF] underline decoration-[#BFD3FB] underline-offset-4 transition-colors hover:text-[#17358F] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF]">
+                    <Mail size={22} className="shrink-0" strokeWidth={1.6} aria-hidden="true" />
+                    higuchis@stjohns.edu
+                  </a>
+                </div>
               </address>
-              <p className="mt-6 rounded-xl border border-[#D8E5FF] bg-[#F4F8FF] px-4 py-3 text-xs leading-5 text-[#34435E]">A lab-specific building and room number have not yet been published.</p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.08} className="relative min-h-[520px] overflow-hidden rounded-[28px] border border-[#D8E5FF] bg-[#EAF1FF] shadow-[0_16px_48px_rgba(11,23,57,0.065)]">
