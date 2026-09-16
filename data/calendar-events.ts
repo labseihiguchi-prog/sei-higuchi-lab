@@ -59,7 +59,7 @@ const archiveEvents: CalendarEvent[] = labEvents.filter((event) => event.slug !=
   showOnCalendar: true,
 }));
 
-export const websiteAnniversary: CalendarEvent = {
+export const afsinsDay: CalendarEvent = {
   id: "afsins-day",
   title: "Afsin’s Day",
   type: "milestone",
@@ -71,7 +71,19 @@ export const websiteAnniversary: CalendarEvent = {
   homepageCelebration: true,
 };
 
-export const calendarEvents: CalendarEvent[] = [...birthdayEvents, websiteAnniversary, ...archiveEvents];
+export const websiteAnniversary: CalendarEvent = {
+  id: "sei-higuchi-lab-website-birthday",
+  title: "Sei Higuchi Lab Website Birthday 🎂",
+  type: "milestone",
+  recurringDate: "09-16",
+  recurring: true,
+  description: "Celebrating the anniversary of the official launch of the Sei Higuchi Lab website on September 16, 2026.",
+  href: "/news",
+  showOnCalendar: true,
+  homepageCelebration: true,
+};
+
+export const calendarEvents: CalendarEvent[] = [...birthdayEvents, afsinsDay, websiteAnniversary, ...archiveEvents];
 
 export const calendarTypeLabels: Record<CalendarEventType, string> = {
   birthday: "Birthdays",

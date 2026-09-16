@@ -111,7 +111,8 @@ export function LabCalendar() {
                 const end = event.dateRange?.end ?? start;
                 return dateKey >= start && dateKey <= end;
               }) : [];
-              return <div key={`${index}-${day ?? "blank"}`} className="min-h-24 border-b border-r border-[#D8E5FF] p-1.5 sm:min-h-32 sm:p-2.5">
+              const isWebsiteBirthday = monthIndex === 8 && day === 16;
+              return <div key={`${index}-${day ?? "blank"}`} className={`min-h-24 border-b border-r border-[#D8E5FF] p-1.5 sm:min-h-32 sm:p-2.5 ${isWebsiteBirthday ? "bg-[#FBEAF0] ring-2 ring-inset ring-[#C982A3]" : ""}`}>
                 {day && <><span className="text-xs font-semibold text-[#0B1739] sm:text-sm">{day}</span><ul className="mt-1.5 space-y-1">{events.map((event) => <li key={event.id}>{event.href ? <Link href={event.href} className="block break-words rounded-md bg-[#EAF1FF] px-1.5 py-1 text-[0.58rem] font-semibold leading-tight text-[#1E40AF] [overflow-wrap:anywhere] hover:bg-[#D8E5FF] sm:text-[0.68rem]">{event.title}</Link> : <span className="block break-words rounded-md bg-[#FFF4D8] px-1.5 py-1 text-[0.58rem] font-semibold leading-tight text-[#72520A] [overflow-wrap:anywhere] sm:text-[0.68rem]">{event.title}</span>}</li>)}</ul></>}
               </div>;
             })}
