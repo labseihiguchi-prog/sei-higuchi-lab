@@ -52,35 +52,31 @@ export default async function LabEventPage({ params }: EventPageProps) {
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-[#F5D6E3]/88 via-transparent to-[#FCEEF4]/25" />
       </>}
       {isAfsinCelebration && <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[url('/images/life-in-the-lab/afsin-celebration-backdrop.svg')] bg-[length:540px_360px] sm:bg-[length:720px_480px]" />}
-      <section className={`relative isolate min-h-[78vh] overflow-hidden text-white ${isAfsinCelebration ? "bg-transparent" : "bg-[#0B1739]"}`}>
+      <section className={`relative isolate min-h-[78vh] overflow-hidden bg-[#0B1739] text-white ${isAfsinCelebration ? "lg:min-h-[90vh]" : ""}`}>
         <Image
           src={event.heroImage.src}
           alt={event.heroImage.alt}
-          fill={!isAfsinCelebration}
-          width={isAfsinCelebration ? event.heroImage.width : undefined}
-          height={isAfsinCelebration ? event.heroImage.height : undefined}
+          fill
           priority
           sizes="100vw"
-          className={isAfsinCelebration ? "h-auto w-full" : event.preserveImageOrientation ? "object-contain object-top" : "object-cover object-center"}
+          className={isAfsinCelebration ? "object-contain object-top sm:object-cover sm:object-bottom" : event.preserveImageOrientation ? "object-contain object-top" : "object-cover object-center"}
         />
-        {!isAfsinCelebration && <>
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#07112B]/95 via-[#07112B]/72 to-[#07112B]/20" />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#07112B]/88 via-transparent to-[#07112B]/25" />
-        </>}
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#07112B]/95 via-[#07112B]/72 to-[#07112B]/20" />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#07112B]/88 via-transparent to-[#07112B]/25" />
 
-        <PageContainer className={`relative flex flex-col justify-between py-10 sm:py-14 lg:py-16 ${isAfsinCelebration ? "text-[#0B1739]" : "min-h-[78vh]"}`}>
+        <PageContainer className={`relative flex min-h-[78vh] flex-col justify-between py-10 sm:py-14 lg:py-16 ${isAfsinCelebration ? "lg:min-h-[90vh]" : ""}`}>
           <Link
             href="/life-in-the-lab"
-            className={`inline-flex w-fit items-center gap-2 rounded-lg text-sm font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 ${isAfsinCelebration ? "bg-white/95 px-4 py-3 text-[#1E40AF] hover:text-[#0B1739] focus-visible:outline-[#1E40AF]" : "text-white hover:text-blue-200 focus-visible:outline-white"}`}
+            className="inline-flex w-fit items-center gap-2 rounded-lg text-sm font-semibold text-white transition-colors duration-200 hover:text-blue-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             <ArrowLeft size={17} aria-hidden="true" />
             Back to Life in the Lab
           </Link>
 
-          <ScrollReveal className={`max-w-4xl ${isAfsinCelebration ? "mt-8 rounded-[28px] bg-white/95 p-6 sm:p-10" : "pb-5 pt-24"}`}>
+          <ScrollReveal className="max-w-4xl pb-5 pt-24">
             <div className="flex flex-wrap gap-2">
               {event.categories.map((category) => (
-                <span key={category} className={`rounded-full border px-3 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.12em] backdrop-blur-sm ${isAfsinCelebration ? "border-[#EACDD8] bg-[#FBEAF0] text-[#1E40AF]" : "border-white/35 bg-white/10 text-blue-100"}`}>{category}</span>
+                <span key={category} className="rounded-full border border-white/35 bg-white/10 px-3 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-blue-100 backdrop-blur-sm">{category}</span>
               ))}
             </div>
             <h1
@@ -99,7 +95,7 @@ export default async function LabEventPage({ params }: EventPageProps) {
             >
               {event.title}
             </h1>
-            <div className={`mt-8 flex flex-wrap gap-x-7 gap-y-3 text-base font-medium sm:text-lg ${isAfsinCelebration ? "text-[#34435E]" : "text-blue-50"}`}>
+            <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-base font-medium text-blue-50 sm:text-lg">
               <span className="inline-flex items-center gap-2.5"><CalendarDays size={19} aria-hidden="true" />{event.displayDate}</span>
               <span className="inline-flex items-center gap-2.5"><MapPin size={19} aria-hidden="true" />{event.location}</span>
             </div>
