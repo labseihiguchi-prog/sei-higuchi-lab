@@ -6,6 +6,7 @@
     <text x="400" y="345" font-size="29" fill="#596DAD" transform="rotate(-12 400 345)">Happy Birthday!</text>
     <text x="40" y="430" font-size="25" fill="#926437" transform="rotate(-5 40 430)">Congratulations Afsin!</text>
     <text x="340" y="235" font-size="20" fill="#477A80" transform="rotate(-7 340 235)">Happy Birthday Afsin!</text>
+    <text x="330" y="410" font-size="22" fill="#9B557A" transform="rotate(9 330 410)">It’s a Girl!</text>
   </g>
   <g opacity=".5">
     <path d="m330 40 5 13-5 6" fill="none" stroke="#60A5FA" stroke-width="3"/>

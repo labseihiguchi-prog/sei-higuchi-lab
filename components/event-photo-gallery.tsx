@@ -32,8 +32,7 @@ export function EventPhotoGallery({ images, label, preserveOrientation = false, 
 
   return (
     <>
-      <div className={celebrationBackdrop ? "relative isolate overflow-hidden rounded-[28px] border border-[#D8E5FF] bg-[#F7F5EF] p-4 sm:p-7 lg:p-10" : undefined}>
-      {celebrationBackdrop && <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[url('/images/life-in-the-lab/afsin-celebration-backdrop.svg')] bg-[length:540px_360px] sm:bg-[length:720px_480px]" />}
+      <div className={celebrationBackdrop ? "relative overflow-hidden rounded-[28px] border border-[#EACDD8] bg-transparent p-4 sm:p-7 lg:p-10" : undefined}>
       <ul className={preserveOrientation ? "grid grid-cols-1 items-start gap-4 sm:grid-cols-2 sm:gap-6" : "grid auto-flow-dense grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-12"} aria-label={label}>
         {images.map((photo, index) => {
           const feature = index % 7 === 0;

@@ -43,33 +43,40 @@ export default async function LabEventPage({ params }: EventPageProps) {
     notFound();
   }
 
+  const isAfsinCelebration = event.slug === "2026-celebrating-afsin-new-chapter";
+
   return (
-    <>
-      <section className="relative isolate min-h-[78vh] overflow-hidden bg-[#0B1739] text-white">
+    <div className={isAfsinCelebration ? "relative isolate overflow-hidden bg-[#FBEAF0]" : undefined}>
+      {isAfsinCelebration && <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[url('/images/life-in-the-lab/afsin-celebration-backdrop.svg')] bg-[length:540px_360px] sm:bg-[length:720px_480px]" />}
+      <section className={`relative isolate min-h-[78vh] overflow-hidden text-white ${isAfsinCelebration ? "bg-transparent" : "bg-[#0B1739]"}`}>
         <Image
           src={event.heroImage.src}
           alt={event.heroImage.alt}
-          fill
+          fill={!isAfsinCelebration}
+          width={isAfsinCelebration ? event.heroImage.width : undefined}
+          height={isAfsinCelebration ? event.heroImage.height : undefined}
           priority
           sizes="100vw"
-          className={event.preserveImageOrientation ? "object-contain object-top" : "object-cover object-center"}
+          className={isAfsinCelebration ? "h-auto w-full" : event.preserveImageOrientation ? "object-contain object-top" : "object-cover object-center"}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#07112B]/95 via-[#07112B]/72 to-[#07112B]/20" />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#07112B]/88 via-transparent to-[#07112B]/25" />
+        {!isAfsinCelebration && <>
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#07112B]/95 via-[#07112B]/72 to-[#07112B]/20" />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#07112B]/88 via-transparent to-[#07112B]/25" />
+        </>}
 
-        <PageContainer className="relative flex min-h-[78vh] flex-col justify-between py-10 sm:py-14 lg:py-16">
+        <PageContainer className={`relative flex flex-col justify-between py-10 sm:py-14 lg:py-16 ${isAfsinCelebration ? "text-[#0B1739]" : "min-h-[78vh]"}`}>
           <Link
             href="/life-in-the-lab"
-            className="inline-flex w-fit items-center gap-2 rounded-lg text-sm font-semibold text-white transition-colors duration-200 hover:text-blue-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className={`inline-flex w-fit items-center gap-2 rounded-lg text-sm font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 ${isAfsinCelebration ? "bg-white/95 px-4 py-3 text-[#1E40AF] hover:text-[#0B1739] focus-visible:outline-[#1E40AF]" : "text-white hover:text-blue-200 focus-visible:outline-white"}`}
           >
             <ArrowLeft size={17} aria-hidden="true" />
             Back to Life in the Lab
           </Link>
 
-          <ScrollReveal className="max-w-4xl pb-5 pt-24">
+          <ScrollReveal className={`max-w-4xl ${isAfsinCelebration ? "mt-8 rounded-[28px] bg-white/95 p-6 sm:p-10" : "pb-5 pt-24"}`}>
             <div className="flex flex-wrap gap-2">
               {event.categories.map((category) => (
-                <span key={category} className="rounded-full border border-white/35 bg-white/10 px-3 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-blue-100 backdrop-blur-sm">{category}</span>
+                <span key={category} className={`rounded-full border px-3 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.12em] backdrop-blur-sm ${isAfsinCelebration ? "border-[#EACDD8] bg-[#FBEAF0] text-[#1E40AF]" : "border-white/35 bg-white/10 text-blue-100"}`}>{category}</span>
               ))}
             </div>
             <h1
@@ -88,7 +95,7 @@ export default async function LabEventPage({ params }: EventPageProps) {
             >
               {event.title}
             </h1>
-            <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-base font-medium text-blue-50 sm:text-lg">
+            <div className={`mt-8 flex flex-wrap gap-x-7 gap-y-3 text-base font-medium sm:text-lg ${isAfsinCelebration ? "text-[#34435E]" : "text-blue-50"}`}>
               <span className="inline-flex items-center gap-2.5"><CalendarDays size={19} aria-hidden="true" />{event.displayDate}</span>
               <span className="inline-flex items-center gap-2.5"><MapPin size={19} aria-hidden="true" />{event.location}</span>
             </div>
@@ -96,9 +103,9 @@ export default async function LabEventPage({ params }: EventPageProps) {
         </PageContainer>
       </section>
 
-      <section className="border-b border-[#D8E5FF] bg-white py-20 sm:py-24 lg:py-28">
+      <section className={`border-b border-[#D8E5FF] py-20 sm:py-24 lg:py-28 ${isAfsinCelebration ? "bg-transparent" : "bg-white"}`}>
         <PageContainer>
-          <ScrollReveal className="mx-auto max-w-4xl text-center">
+          <ScrollReveal className={`mx-auto max-w-4xl text-center ${isAfsinCelebration ? "rounded-[28px] bg-white/95 p-6 shadow-sm sm:p-10" : ""}`}>
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#1E40AF]">{event.displayDate}</p>
             {event.introduction?.length ? (
               <div className="mt-7 space-y-6 text-left text-lg leading-8 text-[#34435E] sm:text-xl sm:leading-9">
@@ -116,10 +123,12 @@ export default async function LabEventPage({ params }: EventPageProps) {
       {event.sections.map((section, sectionIndex) => {
         if (section.kind === "gallery") {
           return (
-            <section key={section.title} className="bg-[#F4F8FF] py-16 sm:py-20" aria-labelledby={`section-${sectionIndex}`}>
+            <section key={section.title} className={`${isAfsinCelebration ? "bg-transparent" : "bg-[#F4F8FF]"} py-16 sm:py-20`} aria-labelledby={`section-${sectionIndex}`}>
               <PageContainer>
+                <div className={isAfsinCelebration ? "rounded-[24px] bg-white/95 p-6 sm:p-8" : undefined}>
                 <h2 id={`section-${sectionIndex}`} className="text-balance text-3xl font-semibold tracking-tight text-[#0B1739] sm:text-4xl">{section.title}</h2>
                 <p className="mt-5 max-w-3xl text-lg leading-8 text-[#34435E]">{section.description}</p>
+                </div>
                 <div className="mt-10">
                   <EventPhotoGallery images={section.gallery} label={`${event.title} gallery`} preserveOrientation celebrationBackdrop={event.slug === "2026-celebrating-afsin-new-chapter"} />
                 </div>
@@ -345,7 +354,7 @@ export default async function LabEventPage({ params }: EventPageProps) {
         );
       })}
 
-      <section className="bg-white py-16 sm:py-20">
+      <section className={`${isAfsinCelebration ? "bg-transparent" : "bg-white"} py-16 sm:py-20`}>
         <PageContainer>
           <Link
             href="/life-in-the-lab"
@@ -356,6 +365,6 @@ export default async function LabEventPage({ params }: EventPageProps) {
           </Link>
         </PageContainer>
       </section>
-    </>
+    </div>
   );
 }

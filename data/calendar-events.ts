@@ -41,7 +41,7 @@ export function getBirthdaysForMonthDay(monthDay: string) {
   return birthdayEvents.filter((event) => event.recurringDate === monthDay);
 }
 
-const archiveEvents: CalendarEvent[] = labEvents.map((event) => ({
+const archiveEvents: CalendarEvent[] = labEvents.filter((event) => event.slug !== "2026-celebrating-afsin-new-chapter").map((event) => ({
   id: event.slug,
   title: event.title,
   type: event.categories.includes("Research & Conferences")
@@ -60,13 +60,13 @@ const archiveEvents: CalendarEvent[] = labEvents.map((event) => ({
 }));
 
 export const websiteAnniversary: CalendarEvent = {
-  id: "sei-higuchi-lab-website-anniversary",
-  title: "Sei Higuchi Lab Website Anniversary",
+  id: "afsins-day",
+  title: "Afsin’s Day",
   type: "milestone",
   recurringDate: "09-16",
   recurring: true,
-  description: "Celebrating the anniversary of the official launch of the Sei Higuchi Lab website on September 16, 2026.",
-  href: "/news",
+  description: "A special Higuchi Lab celebration honoring Afsin’s birthday, her promotion to Doctoral Fellow, welcoming baby Amelie, and the official launch of the Sei Higuchi Lab website.",
+  href: "/life-in-the-lab/2026-celebrating-afsin-new-chapter",
   showOnCalendar: true,
   homepageCelebration: true,
 };

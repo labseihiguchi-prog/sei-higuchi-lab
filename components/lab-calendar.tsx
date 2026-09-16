@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { calendarEvents, calendarTypeLabels, type CalendarEventType } from "@/data/calendar-events";
 
@@ -25,7 +25,41 @@ function newYorkToday() {
 }
 
 export function LabCalendar() {
-  const today = useMemo(() => newYorkToday(), []);
+  const [today, setToday] = useState(() => newYorkToday());
+  const [dateReady, setDateReady] = useState(false);
+  const confettiRef = useRef<HTMLDivElement>(null);
+  const isCelebrationDay = dateReady && today.dateKey.slice(5) === "09-16";
+
+  useEffect(() => {
+    const updateDate = () => { setToday(newYorkToday()); setDateReady(true); };
+    updateDate();
+    const interval = window.setInterval(updateDate, 60_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!isCelebrationDay || !confettiRef.current) return;
+    const host = confettiRef.current;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let animations: Animation[] = [];
+    const stop = () => { animations.forEach((animation) => animation.cancel()); animations = []; };
+    const start = () => {
+      stop();
+      if (reducedMotion.matches) return;
+      animations = Array.from(host.children).map((piece, index) => piece.animate(
+        [
+          { opacity: 0, transform: "translateY(-24px) rotate(0deg)" },
+          { opacity: 0.6, offset: 0.1 },
+          { opacity: 0, transform: `translateY(${host.clientHeight + 24}px) rotate(${index % 2 ? 300 : -300}deg)` },
+        ],
+        { duration: 6500 + (index % 4) * 900, delay: -(index * 700), iterations: Infinity, easing: "linear" },
+      ));
+    };
+    start();
+    reducedMotion.addEventListener("change", start);
+    window.addEventListener("resize", start);
+    return () => { stop(); reducedMotion.removeEventListener("change", start); window.removeEventListener("resize", start); };
+  }, [isCelebrationDay]);
   const [month, setMonth] = useState(new Date(today.year, today.monthIndex, 1));
   const [activeTypes, setActiveTypes] = useState<CalendarEventType[]>(types);
   const year = month.getFullYear();
@@ -49,7 +83,10 @@ export function LabCalendar() {
   }
 
   return (
-    <div className="grid min-w-0 gap-8 xl:grid-cols-[minmax(0,1fr)_20rem]">
+    <div className="relative isolate grid min-w-0 gap-8 overflow-hidden xl:grid-cols-[minmax(0,1fr)_20rem]">
+      {isCelebrationDay && <div ref={confettiRef} aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 overflow-hidden motion-reduce:hidden">
+        {Array.from({ length: 16 }, (_, index) => <span key={index} className="pointer-events-none absolute -top-4 h-3 w-1.5 rounded-sm opacity-0" style={{ left: `${4 + index * 6}%`, backgroundColor: ["#1E40AF", "#60A5FA", "#C982A3", "#B78B50"][index % 4] }} />)}
+      </div>}
       <div className="min-w-0">
         <div className="flex min-w-0 flex-col gap-6 overflow-hidden rounded-[28px] border border-[#D8E5FF] bg-white p-5 shadow-[0_12px_38px_rgba(11,23,57,0.05)] sm:p-7">
           <div className="flex items-center justify-between gap-4">
