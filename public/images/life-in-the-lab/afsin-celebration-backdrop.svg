@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480">
+  <g font-family="Georgia, serif" font-style="italic" opacity=".32">
+    <text x="30" y="75" font-size="27" fill="#1E40AF" transform="rotate(-9 30 75)">Happy Birthday Afsin!</text>
+    <text x="395" y="135" font-size="24" fill="#926437" transform="rotate(12 395 135)">Congratulations Afsin!</text>
+    <text x="75" y="260" font-size="21" fill="#477A80" transform="rotate(8 75 260)">Congratulations!</text>
+    <text x="400" y="345" font-size="29" fill="#596DAD" transform="rotate(-12 400 345)">Happy Birthday!</text>
+    <text x="40" y="430" font-size="25" fill="#926437" transform="rotate(-5 40 430)">Congratulations Afsin!</text>
+    <text x="340" y="235" font-size="20" fill="#477A80" transform="rotate(-7 340 235)">Happy Birthday Afsin!</text>
+  </g>
+  <g opacity=".5">
+    <path d="m330 40 5 13-5 6" fill="none" stroke="#60A5FA" stroke-width="3"/>
+    <path d="m640 70 8 7-7 8" fill="none" stroke="#B78B50" stroke-width="3"/>
+    <path d="m55 155 8 7-7 8" fill="none" stroke="#477A80" stroke-width="3"/>
+    <path d="m330 355 5 13-5 6" fill="none" stroke="#1E40AF" stroke-width="3"/>
+    <path d="m620 435 8 7-7 8" fill="none" stroke="#60A5FA" stroke-width="3"/>
+    <rect x="230" y="170" width="6" height="15" rx="2" fill="#B78B50" transform="rotate(30 233 177)"/>
+    <rect x="680" y="275" width="6" height="15" rx="2" fill="#1E40AF" transform="rotate(-25 683 282)"/>
+    <rect x="145" y="340" width="6" height="15" rx="2" fill="#60A5FA" transform="rotate(-30 148 347)"/>
+    <circle cx="380" cy="180" r="4" fill="#B78B50"/>
+    <circle cx="290" cy="290" r="3" fill="#477A80"/>
+    <circle cx="550" cy="45" r="3" fill="#1E40AF"/>
+    <circle cx="455" cy="435" r="4" fill="#477A80"/>
+    <circle cx="25" cy="310" r="3" fill="#B78B50"/>
+  </g>
+</svg>

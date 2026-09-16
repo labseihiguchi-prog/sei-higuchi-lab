@@ -121,7 +121,7 @@ export default async function LabEventPage({ params }: EventPageProps) {
                 <h2 id={`section-${sectionIndex}`} className="text-balance text-3xl font-semibold tracking-tight text-[#0B1739] sm:text-4xl">{section.title}</h2>
                 <p className="mt-5 max-w-3xl text-lg leading-8 text-[#34435E]">{section.description}</p>
                 <div className="mt-10">
-                  <EventPhotoGallery images={section.gallery} label={`${event.title} gallery`} preserveOrientation />
+                  <EventPhotoGallery images={section.gallery} label={`${event.title} gallery`} preserveOrientation celebrationBackdrop={event.slug === "2026-celebrating-afsin-new-chapter"} />
                 </div>
               </PageContainer>
             </section>

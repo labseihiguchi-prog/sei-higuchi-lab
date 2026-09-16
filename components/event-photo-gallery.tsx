@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 import type { LabGalleryImage } from "@/data/lab-events";
 
-export function EventPhotoGallery({ images, label, preserveOrientation = false }: { images: LabGalleryImage[]; label: string; preserveOrientation?: boolean }) {
+export function EventPhotoGallery({ images, label, preserveOrientation = false, celebrationBackdrop = false }: { images: LabGalleryImage[]; label: string; preserveOrientation?: boolean; celebrationBackdrop?: boolean }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -32,6 +32,8 @@ export function EventPhotoGallery({ images, label, preserveOrientation = false }
 
   return (
     <>
+      <div className={celebrationBackdrop ? "relative isolate overflow-hidden rounded-[28px] border border-[#D8E5FF] bg-[#F7F5EF] p-4 sm:p-7 lg:p-10" : undefined}>
+      {celebrationBackdrop && <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[url('/images/life-in-the-lab/afsin-celebration-backdrop.svg')] bg-[length:540px_360px] sm:bg-[length:720px_480px]" />}
       <ul className={preserveOrientation ? "grid grid-cols-1 items-start gap-4 sm:grid-cols-2 sm:gap-6" : "grid auto-flow-dense grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-12"} aria-label={label}>
         {images.map((photo, index) => {
           const feature = index % 7 === 0;
@@ -65,6 +67,7 @@ export function EventPhotoGallery({ images, label, preserveOrientation = false }
           );
         })}
       </ul>
+      </div>
 
       <dialog
         ref={dialogRef}
@@ -114,7 +117,7 @@ export function EventPhotoGallery({ images, label, preserveOrientation = false }
             />
             <div className="mt-4 flex w-full items-start justify-between gap-5 px-1 text-sm text-blue-100">
               <p>{selected.caption ?? selected.alt}</p>
-              <p className="shrink-0 tabular-nums">{(selectedIndex ?? 0) + 1} / {images.length}</p>
+              {!celebrationBackdrop && <p className="shrink-0 tabular-nums">{(selectedIndex ?? 0) + 1} / {images.length}</p>}
             </div>
           </div>
         )}
