@@ -46,7 +46,11 @@ export default async function LabEventPage({ params }: EventPageProps) {
   const isAfsinCelebration = event.slug === "2026-celebrating-afsin-new-chapter";
 
   return (
-    <div className={isAfsinCelebration ? "relative isolate overflow-hidden bg-[#FBEAF0]" : undefined}>
+    <div className={isAfsinCelebration ? "relative isolate overflow-hidden bg-[#FFF9FC]" : undefined}>
+      {isAfsinCelebration && <>
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#F8DCE6]/95 via-[#FBEAF0]/72 to-[#FFF9FC]/20" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-[#F5D6E3]/88 via-transparent to-[#FCEEF4]/25" />
+      </>}
       {isAfsinCelebration && <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[url('/images/life-in-the-lab/afsin-celebration-backdrop.svg')] bg-[length:540px_360px] sm:bg-[length:720px_480px]" />}
       <section className={`relative isolate min-h-[78vh] overflow-hidden text-white ${isAfsinCelebration ? "bg-transparent" : "bg-[#0B1739]"}`}>
         <Image
