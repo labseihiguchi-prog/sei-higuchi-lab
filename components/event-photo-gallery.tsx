@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 import type { LabGalleryImage } from "@/data/lab-events";
 
-export function EventPhotoGallery({ images, label }: { images: LabGalleryImage[]; label: string }) {
+export function EventPhotoGallery({ images, label, preserveOrientation = false }: { images: LabGalleryImage[]; label: string; preserveOrientation?: boolean }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -32,7 +32,7 @@ export function EventPhotoGallery({ images, label }: { images: LabGalleryImage[]
 
   return (
     <>
-      <ul className="grid auto-flow-dense grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-12" aria-label={label}>
+      <ul className={preserveOrientation ? "grid grid-cols-1 items-start gap-4 sm:grid-cols-2 sm:gap-6" : "grid auto-flow-dense grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-12"} aria-label={label}>
         {images.map((photo, index) => {
           const feature = index % 7 === 0;
           const wide = index % 5 === 2;
@@ -40,20 +40,22 @@ export function EventPhotoGallery({ images, label }: { images: LabGalleryImage[]
           return (
             <li
               key={photo.src}
-              className={`${feature ? "col-span-2 row-span-2 lg:col-span-7" : wide ? "col-span-2 lg:col-span-7" : "col-span-1 lg:col-span-5"}`}
+              className={preserveOrientation ? "" : `${feature ? "col-span-2 row-span-2 lg:col-span-7" : wide ? "col-span-2 lg:col-span-7" : "col-span-1 lg:col-span-5"}`}
             >
               <button
                 type="button"
                 onClick={() => setSelectedIndex(index)}
                 aria-label={`Open image ${index + 1} of ${images.length}: ${photo.alt}`}
-                className={`group relative block w-full overflow-hidden rounded-[20px] border border-[#D8E5FF] bg-[#EAF1FF] shadow-[0_8px_28px_rgba(11,23,57,0.05)] transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(30,64,175,0.12)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF] motion-reduce:transform-none motion-reduce:transition-none ${feature ? "aspect-[4/3]" : wide ? "aspect-[16/10]" : "aspect-[4/5]"}`}
+                className={`group relative block w-full overflow-hidden rounded-[20px] border border-[#D8E5FF] bg-[#EAF1FF] shadow-[0_8px_28px_rgba(11,23,57,0.05)] transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(30,64,175,0.12)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF] motion-reduce:transform-none motion-reduce:transition-none ${preserveOrientation ? "" : feature ? "aspect-[4/3]" : wide ? "aspect-[16/10]" : "aspect-[4/5]"}`}
               >
                 <Image
                   src={photo.src}
                   alt={photo.alt}
-                  fill
+                  fill={!preserveOrientation}
+                  width={preserveOrientation ? photo.width : undefined}
+                  height={preserveOrientation ? photo.height : undefined}
                   sizes={feature || wide ? "(min-width: 1024px) 58vw, 100vw" : "(min-width: 1024px) 40vw, 50vw"}
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
+                  className={preserveOrientation ? "h-auto w-full" : "object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"}
                 />
                 <span className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-[#0B1739]/70 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none">
                   <Expand size={18} aria-hidden="true" />

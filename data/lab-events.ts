@@ -16,6 +16,7 @@ import { jonathanBirthdayPhotos, linBirthdayPhotos, seiNoraBirthdayPhotos } from
 import { nyspetPhotos } from "@/data/nyspet-gallery";
 import { rapidResearchGallery, rapidResearchPhotos } from "@/data/rapid-research-gallery";
 import { sidoRestaurantUrl } from "@/data/site-config";
+import { afsinDayPhotos } from "@/data/afsin-day-gallery";
 
 export const labEventCategories = [
   "Research & Conferences",
@@ -51,7 +52,8 @@ export type LabEventSection = {
     | "spotlight"
     | "compact"
     | "award-portrait"
-    | "photo-pair";
+    | "photo-pair"
+    | "gallery";
 };
 
 export type LabEvent = {
@@ -66,6 +68,7 @@ export type LabEvent = {
   shortDescription: string;
   introduction?: string[];
   heroImage: LabGalleryImage;
+  preserveImageOrientation?: boolean;
   featured: boolean;
   sections: LabEventSection[];
   gallery: LabGalleryImage[];
@@ -131,6 +134,30 @@ const awardsGallery = [
 const researchLeaderGallery = ["research-week-457.webp", "dsc-1436.webp"].map(image);
 
 const labEventsUnsorted: LabEvent[] = [
+  {
+    slug: "2026-celebrating-afsin-new-chapter",
+    title: "Celebrating Afsin & a New Chapter for the Higuchi Lab",
+    startDate: "2026-09-16",
+    endDate: "2026-09-16",
+    displayDate: "September 16, 2026",
+    year: 2026,
+    location: "Sei Higuchi Lab, St. John's University",
+    categories: ["Celebrations"],
+    shortDescription: "The Higuchi Lab came together for a very special celebration honoring Afsin’s birthday, welcoming her daughter Amilie to our lab family, and congratulating Afsin on her promotion to Doctoral Fellow. Over food, cake, and plenty of smiles, we also officially unveiled the new Sei Higuchi Lab website — making September 16 the birthday of our lab’s digital home.",
+    heroImage: afsinDayPhotos[0],
+    preserveImageOrientation: true,
+    featured: false,
+    sections: [{
+      title: "A celebration with our lab family",
+      date: "September 16, 2026",
+      description: "Eight photographs from a special day together, including Afsin receiving her congratulatory gift from Dr. Sei Higuchi.",
+      mainImage: afsinDayPhotos[0],
+      gallery: afsinDayPhotos,
+      kind: "gallery",
+      eyebrow: "Celebrations",
+    }],
+    gallery: afsinDayPhotos,
+  },
   {
     slug: "2026-keystone-symposia-gut-brain-axis",
     title: "Keystone Symposia — Gut-Brain Axis",

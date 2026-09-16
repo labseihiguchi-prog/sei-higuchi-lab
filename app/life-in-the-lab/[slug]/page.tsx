@@ -52,7 +52,7 @@ export default async function LabEventPage({ params }: EventPageProps) {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className={event.preserveImageOrientation ? "object-contain object-top" : "object-cover object-center"}
         />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#07112B]/95 via-[#07112B]/72 to-[#07112B]/20" />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#07112B]/88 via-transparent to-[#07112B]/25" />
@@ -80,6 +80,7 @@ export default async function LabEventPage({ params }: EventPageProps) {
                   "2026-end-of-semester-party-spring",
                   "2026-rapid-research-celebrating-women-in-science",
                   "2026-dr-sei-nora-birthday-celebration",
+                  "2026-celebrating-afsin-new-chapter",
                 ].includes(event.slug)
                   ? "text-[2.7rem] sm:text-[clamp(3.4rem,7vw,6.8rem)]"
                   : "text-[clamp(3.4rem,7vw,6.8rem)]"
@@ -113,6 +114,19 @@ export default async function LabEventPage({ params }: EventPageProps) {
       </section>
 
       {event.sections.map((section, sectionIndex) => {
+        if (section.kind === "gallery") {
+          return (
+            <section key={section.title} className="bg-[#F4F8FF] py-16 sm:py-20" aria-labelledby={`section-${sectionIndex}`}>
+              <PageContainer>
+                <h2 id={`section-${sectionIndex}`} className="text-balance text-3xl font-semibold tracking-tight text-[#0B1739] sm:text-4xl">{section.title}</h2>
+                <p className="mt-5 max-w-3xl text-lg leading-8 text-[#34435E]">{section.description}</p>
+                <div className="mt-10">
+                  <EventPhotoGallery images={section.gallery} label={`${event.title} gallery`} preserveOrientation />
+                </div>
+              </PageContainer>
+            </section>
+          );
+        }
         if (section.kind === "award-portrait") {
           return (
             <section

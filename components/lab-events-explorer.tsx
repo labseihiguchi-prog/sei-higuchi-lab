@@ -99,7 +99,7 @@ export function LabEventsExplorer({ events }: { events: LabEvent[] }) {
                     alt={event.heroImage.alt}
                     fill
                     sizes="(min-width: 1280px) 32vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
+                    className={event.preserveImageOrientation ? "object-contain" : "object-cover transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"}
                   />
                 </div>
                 <div className="p-7">
