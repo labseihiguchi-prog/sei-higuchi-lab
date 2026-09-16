@@ -15,3 +15,12 @@ export const rapidResearchPhotos = {
 } satisfies Record<string, LabGalleryImage>;
 
 export const rapidResearchGallery = Object.values(rapidResearchPhotos);
+
+export const rapidResearchPhotoBoothGallery: LabGalleryImage[] = [
+  { src: `${root}/img_0015.jpg`, width: 4272, height: 2848, alt: "Lab members posing with colorful science-themed bottles at the photo booth." },
+  { src: `${root}/img_0018.jpg`, width: 4272, height: 2848, alt: "Lab members enjoying the photo booth with pipettes and laboratory props." },
+  { src: `${root}/img_0019.jpg`, width: 4272, height: 2848, alt: "A cheerful group photo against the sparkling photo booth backdrop." },
+  { src: `${root}/img_0022.jpg`, width: 4272, height: 2848, alt: "The lab team posing together with pipettes and colorful bottles." },
+  { src: `${root}/img_0024.jpg`, width: 4272, height: 2848, alt: "A playful photo booth moment with science-themed props." },
+  { src: `${root}/img_0069.jpg`, width: 4272, height: 2848, alt: "Lab members sharing a smiling photo booth moment with colorful lab bottles." },
+];

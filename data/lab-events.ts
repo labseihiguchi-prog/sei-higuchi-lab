@@ -14,7 +14,7 @@ import {
 } from "@/data/three-minute-thesis-gallery";
 import { jonathanBirthdayPhotos, linBirthdayPhotos, seiNoraBirthdayPhotos } from "@/data/birthday-galleries";
 import { nyspetPhotos } from "@/data/nyspet-gallery";
-import { rapidResearchGallery, rapidResearchPhotos } from "@/data/rapid-research-gallery";
+import { rapidResearchGallery, rapidResearchPhotos, rapidResearchPhotoBoothGallery } from "@/data/rapid-research-gallery";
 import { sidoRestaurantUrl } from "@/data/site-config";
 import { afsinDayPhotos } from "@/data/afsin-day-gallery";
 
@@ -553,8 +553,16 @@ const labEventsUnsorted: LabEvent[] = [
         gallery: rapidResearchGallery.filter((photo) => photo.src !== rapidResearchPhotos.hero.src),
         kind: "editorial",
       },
+      {
+        title: "Science, but Make It Fun",
+        date: "2026-05-06",
+        description: "Between the science and celebrations, the Higuchi Lab made time for a little fun at the photo booth. With pipettes, colorful lab bottles, and plenty of personality, the team captured some memorable moments together.",
+        mainImage: rapidResearchPhotoBoothGallery[0],
+        gallery: rapidResearchPhotoBoothGallery,
+        kind: "gallery",
+      },
     ],
-    gallery: rapidResearchGallery,
+    gallery: [...rapidResearchGallery, ...rapidResearchPhotoBoothGallery],
   },
   {
     slug: "2026-jonathan-birthday-celebration",
