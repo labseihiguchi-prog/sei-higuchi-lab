@@ -10,7 +10,7 @@ import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
   title: "News & Updates | Sei Higuchi Lab",
-  description: "News, publications, conferences, awards, student updates, and milestones from the Sei Higuchi Lab.",
+  description: "News and milestones from the Sei Higuchi Lab at St. John’s University, including the official website launch on September 16, 2026, publications, conferences, and awards.",
   path: "/news",
 });
 

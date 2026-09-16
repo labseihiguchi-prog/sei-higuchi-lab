@@ -59,7 +59,19 @@ const archiveEvents: CalendarEvent[] = labEvents.map((event) => ({
   showOnCalendar: true,
 }));
 
-export const calendarEvents: CalendarEvent[] = [...birthdayEvents, ...archiveEvents];
+export const websiteAnniversary: CalendarEvent = {
+  id: "sei-higuchi-lab-website-anniversary",
+  title: "Sei Higuchi Lab Website Anniversary",
+  type: "milestone",
+  recurringDate: "09-16",
+  recurring: true,
+  description: "Celebrating the anniversary of the official launch of the Sei Higuchi Lab website on September 16, 2026.",
+  href: "/news",
+  showOnCalendar: true,
+  homepageCelebration: true,
+};
+
+export const calendarEvents: CalendarEvent[] = [...birthdayEvents, websiteAnniversary, ...archiveEvents];
 
 export const calendarTypeLabels: Record<CalendarEventType, string> = {
   birthday: "Birthdays",

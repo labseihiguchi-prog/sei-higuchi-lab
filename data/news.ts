@@ -1,4 +1,4 @@
-export const newsCategories = ["All", "Publications", "Conferences", "Awards", "Students", "Outreach"] as const;
+export const newsCategories = ["All", "Publications", "Conferences", "Awards", "Students", "Outreach", "Lab Updates"] as const;
 
 export type NewsCategory = Exclude<(typeof newsCategories)[number], "All">;
 
@@ -18,6 +18,16 @@ export type NewsItem = {
 };
 
 export const newsItems: NewsItem[] = [
+  {
+    id: "sei-higuchi-lab-website-launch-2026",
+    title: "Sei Higuchi Lab Website Officially Launches",
+    summary: "September 16 marks the official launch of the Sei Higuchi Lab website — a new digital home for our research, people, publications, and life in the lab. The lab celebrated the launch together during a special gathering honoring Afsin’s birthday, her promotion to Doctoral Fellow, and welcoming her daughter Amilie to the Higuchi Lab family.",
+    category: "Lab Updates",
+    publishedAt: "2026-09-16",
+    displayDate: "September 16, 2026",
+    href: "/life-in-the-lab/2026-celebrating-afsin-new-chapter",
+    linkLabel: "See the celebration",
+  },
   {
     id: "congratulations-afsin-malik",
     title: "Congratulations to Afsin Malik",

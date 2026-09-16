@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
-import { getBirthdaysForMonthDay } from "@/data/calendar-events";
+import { getBirthdaysForMonthDay, websiteAnniversary } from "@/data/calendar-events";
 import { people } from "@/data/people";
 
 const confetti = [
@@ -33,9 +33,44 @@ export function BirthdayCelebration() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const { dayKey, monthDay } = useMemo(() => newYorkDateParts(new Date()), []);
+  const [dateParts, setDateParts] = useState({ dayKey: "", monthDay: "" });
+  const anniversaryConfettiRef = useRef<HTMLDivElement>(null);
+  const { dayKey, monthDay } = dateParts;
+  const isWebsiteAnniversary = monthDay === websiteAnniversary.recurringDate;
   const birthdays = getBirthdaysForMonthDay(monthDay).filter((event) => event.homepageCelebration);
   const storageKey = `higuchi-lab-birthday-${dayKey}`;
+
+  useEffect(() => {
+    const updateDate = () => setDateParts(newYorkDateParts(new Date()));
+    updateDate();
+    const interval = window.setInterval(updateDate, 60_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!isWebsiteAnniversary) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotion.matches) return;
+    const animations = Array.from(anniversaryConfettiRef.current?.children ?? []).map((piece, index) =>
+      piece.animate(
+        [
+          { opacity: 0, transform: "translateY(-20px) rotate(0deg)" },
+          { opacity: 0.85, offset: 0.15 },
+          { opacity: 0, transform: `translateY(60vh) rotate(${index % 2 ? 220 : -220}deg)` },
+        ],
+        { duration: 3200, delay: index * 100, iterations: 1, fill: "none", easing: "ease-out" },
+      ),
+    );
+    const stop = () => animations.forEach((animation) => animation.cancel());
+    const handleMotionChange = () => { if (reducedMotion.matches) stop(); };
+    reducedMotion.addEventListener("change", handleMotionChange);
+    const timeout = window.setTimeout(stop, 4200);
+    return () => {
+      stop();
+      window.clearTimeout(timeout);
+      reducedMotion.removeEventListener("change", handleMotionChange);
+    };
+  }, [isWebsiteAnniversary, dayKey]);
 
   useEffect(() => {
     if (birthdays.length === 0 || window.localStorage.getItem(storageKey)) return;
@@ -56,10 +91,24 @@ export function BirthdayCelebration() {
     returnFocusRef.current?.focus();
   }
 
-  if (birthdays.length === 0) return null;
+  if (birthdays.length === 0 && !isWebsiteAnniversary) return null;
 
   return (
-    <dialog
+    <>
+      {isWebsiteAnniversary && (
+        <>
+          <div ref={anniversaryConfettiRef} aria-hidden="true" className="pointer-events-none fixed inset-0 z-50 overflow-hidden motion-reduce:hidden">
+            {confetti.map(([top, left, color], index) => (
+              <span key={index} className="pointer-events-none absolute h-3 w-1.5 rounded-sm opacity-0" style={{ top: `${Number.parseInt(top) / 4}%`, left, backgroundColor: color }} />
+            ))}
+          </div>
+          <aside aria-label="Website anniversary" className="pointer-events-none fixed bottom-4 left-4 right-4 z-40 mx-auto max-w-md rounded-2xl border border-[#D8E5FF] bg-white/95 p-4 text-center text-[#0B1739] shadow-lg sm:left-auto sm:right-6">
+            <p className="text-sm font-semibold">Happy Birthday to Our Digital Home! 🎉</p>
+            <p className="mt-1 text-xs leading-5 text-[#34435E]">Celebrating the Sei Higuchi Lab website, launched September 16, 2026.</p>
+          </aside>
+        </>
+      )}
+      {birthdays.length > 0 && <dialog
       ref={dialogRef}
       aria-labelledby="birthday-title"
       onClose={handleClosed}
@@ -93,6 +142,7 @@ export function BirthdayCelebration() {
         </div>
         <p className="mx-auto mt-7 max-w-md text-sm leading-6 text-[#34435E]">Wishing you a wonderful birthday from everyone in the Higuchi Lab.</p>
       </div>
-    </dialog>
+    </dialog>}
+    </>
   );
 }
