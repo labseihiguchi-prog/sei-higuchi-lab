@@ -28,21 +28,30 @@ function summarizeProfile(text: string, maxLength = 160) {
 function getProfileSeo(person: (typeof profileMembers)[number]) {
   if (person.slug === "sei-higuchi") {
     return {
-      title: "Sei Higuchi, PhD | Principal Investigator | Sei Higuchi Lab",
-      description: "Sei Higuchi, PhD, is an Assistant Professor at St. John’s University and Principal Investigator of the Sei Higuchi Lab, studying bile acids, metabolism, appetite, obesity, and metabolic disease.",
+      title: "Sei Higuchi | Sei Higuchi Lab | St. John's University",
+      description: "Sei Higuchi is an Assistant Professor at St. John’s University and Principal Investigator of the Sei Higuchi Lab, where he leads research on bile acids and metabolism.",
+      displayName: "Sei Higuchi",
+      imageAlt: "Sei Higuchi, Assistant Professor and Principal Investigator at St. John’s University",
+      jobTitle: "Principal Investigator / Assistant Professor",
     };
   }
 
   if (person.slug === "mais-alkyam") {
     return {
-      title: "Mais Alkyam | Toxicology PhD Student | Sei Higuchi Lab",
-      description: "Mais Alkyam is a Toxicology PhD student at St. John’s University whose research combines toxicology, metabolism, and molecular biology to study metabolic disease.",
+      title: "Mais Alkyam | PhD Student in Toxicology | Sei Higuchi Lab",
+      description: "Mais Alkyam is a PhD student in Toxicology at St. John’s University and a member of the Sei Higuchi Lab studying toxicology, metabolism, and metabolic disease.",
+      displayName: "Mais Alkyam",
+      imageAlt: "Mais Alkyam, PhD student in Toxicology at St. John's University",
+      jobTitle: "PhD Student in Toxicology",
     };
   }
 
   return {
     title: `${person.name} | ${person.role} | Sei Higuchi Lab`,
     description: summarizeProfile(person.biography),
+    displayName: person.name,
+    imageAlt: `Portrait of ${person.name}`,
+    jobTitle: person.role,
   };
 }
 
@@ -55,10 +64,13 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
   }
 
   const seo = getProfileSeo(person);
+  const profileImageUrl = new URL(person.image, siteUrl).toString();
   return createPageMetadata({
-    ...seo,
+    title: seo.title,
+    description: seo.description,
     path: `/people/${person.slug}`,
-    image: person.image,
+    image: profileImageUrl,
+    openGraphType: "profile",
   });
 }
 
@@ -72,35 +84,40 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
   const seo = getProfileSeo(person);
   const profileUrl = new URL(`/people/${person.slug}`, siteUrl).toString();
+  const personId = `${profileUrl}#person`;
+  const labId = `${siteUrl.toString().replace(/\/$/, "")}#organization`;
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
+    "@id": `${profileUrl}#profile-page`,
     url: profileUrl,
     name: seo.title,
     description: seo.description,
     mainEntity: {
       "@type": "Person",
-      name: person.slug === "sei-higuchi" ? "Sei Higuchi" : person.name,
+      "@id": personId,
+      name: seo.displayName,
       ...(person.slug === "sei-higuchi" ? { honorificSuffix: "PhD" } : {}),
-      jobTitle: person.role,
+      jobTitle: seo.jobTitle,
       description: seo.description,
       url: profileUrl,
       image: new URL(person.image, siteUrl).toString(),
-      ...(person.email ? { email: `mailto:${person.email}` } : {}),
       memberOf: {
         "@type": "ResearchOrganization",
+        "@id": labId,
         name: "Sei Higuchi Lab",
         url: siteUrl.toString(),
+        parentOrganization: {
+          "@type": "CollegeOrUniversity",
+          name: "St. John’s University",
+          url: "https://www.stjohns.edu/",
+        },
       },
-      ...(person.slug === "sei-higuchi"
-        ? {
-            affiliation: {
-              "@type": "CollegeOrUniversity",
-              name: "St. John’s University",
-              url: "https://www.stjohns.edu/",
-            },
-          }
-        : {}),
+      affiliation: {
+        "@type": "CollegeOrUniversity",
+        name: "St. John’s University",
+        url: "https://www.stjohns.edu/",
+      },
     },
   };
 
@@ -124,7 +141,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
             <ScrollReveal className="relative aspect-[4/5] overflow-hidden rounded-[28px] border border-[#D8E5FF] bg-[#EAF1FF] shadow-[0_24px_64px_rgba(11,23,57,0.14)]">
               <Image
                 src={person.image}
-                alt={`Portrait of ${person.name}`}
+                alt={seo.imageAlt}
                 fill
                 priority
                 sizes="(min-width: 1024px) 40vw, 100vw"
@@ -135,7 +152,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
             <ScrollReveal delay={0.08}>
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#1E40AF]">{person.category}</p>
-              <h1 className="mt-5 text-balance text-5xl font-bold tracking-[-0.05em] text-[#0B1739] sm:text-6xl lg:text-7xl">{person.name}</h1>
+              <h1 className="mt-5 text-balance text-5xl font-bold tracking-[-0.05em] text-[#0B1739] sm:text-6xl lg:text-7xl">{seo.displayName}</h1>
               <p className="mt-6 text-xl font-semibold leading-8 text-[#1E40AF] sm:text-2xl">{person.role}</p>
               {person.email && (
                 <a

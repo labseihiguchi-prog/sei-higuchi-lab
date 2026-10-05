@@ -8,6 +8,12 @@ type PersonCardProps = {
 };
 
 export function PersonCard({ person }: PersonCardProps) {
+  const imageAlt = person.slug === "mais-alkyam"
+    ? "Mais Alkyam, PhD student in Toxicology at St. John's University"
+    : person.slug === "sei-higuchi"
+      ? "Sei Higuchi, Assistant Professor and Principal Investigator at St. John’s University"
+      : `Portrait of ${person.name}`;
+
   return (
     <Link
       href={`/people/${person.slug}`}
@@ -17,7 +23,7 @@ export function PersonCard({ person }: PersonCardProps) {
       <div className="relative aspect-[4/5] overflow-hidden border-b border-[#D8E5FF] bg-[#EAF1FF]">
         <Image
           src={person.image}
-          alt={`Portrait of ${person.name}`}
+          alt={imageAlt}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.025] motion-reduce:transition-none"

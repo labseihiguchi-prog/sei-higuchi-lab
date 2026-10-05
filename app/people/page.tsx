@@ -174,7 +174,7 @@ export default function PeoplePage() {
             <ScrollReveal className="relative min-h-[580px] overflow-hidden rounded-[28px] bg-[#0B1739] shadow-[0_24px_64px_rgba(11,23,57,0.16)] sm:min-h-[700px]">
               <Image
                 src={principalInvestigator.image}
-                alt="Dr. Sei Higuchi on the St. John's University campus."
+                alt="Sei Higuchi, Assistant Professor and Principal Investigator at St. John’s University"
                 fill
                 priority
                 sizes="(min-width: 1024px) 42vw, 100vw"
@@ -188,7 +188,9 @@ export default function PeoplePage() {
             <ScrollReveal delay={0.1}>
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#1E40AF]">Principal Investigator</p>
               <h2 id="principal-investigator-heading" className="mt-5 text-balance text-4xl font-semibold tracking-[-0.045em] text-[#0B1739] sm:text-5xl lg:text-6xl">
-                {principalInvestigator.name}
+                <Link href={`/people/${principalInvestigator.slug}`} className="rounded-lg transition-colors hover:text-[#1E40AF] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF]">
+                  {principalInvestigator.name}
+                </Link>
               </h2>
               <div className="mt-6 border-l-2 border-[#1E40AF] pl-5 text-sm leading-6 text-[#34435E]">
                 <p className="font-semibold text-[#0B1739]">Assistant Professor</p>

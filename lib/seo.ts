@@ -9,6 +9,7 @@ type PageMetadataOptions = {
   description: string;
   path: string;
   image?: string;
+  openGraphType?: "website" | "profile";
 };
 
 export function createPageMetadata({
@@ -16,6 +17,7 @@ export function createPageMetadata({
   description,
   path,
   image = defaultSocialImage,
+  openGraphType = "website",
 }: PageMetadataOptions): Metadata {
   const canonical = new URL(path, siteUrl).toString();
 
@@ -24,7 +26,7 @@ export function createPageMetadata({
     description,
     alternates: { canonical },
     openGraph: {
-      type: "website",
+      type: openGraphType,
       siteName,
       title,
       description,
