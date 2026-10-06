@@ -46,9 +46,30 @@ export function NewsTimeline({ items }: { items: NewsItem[] }) {
                 <span aria-hidden="true" className="absolute -left-[2.6rem] top-2 h-4 w-4 rounded-full bg-[#1E40AF] ring-8 ring-[#E8F0FF] sm:-left-[3.55rem]" />
                 <article className="overflow-hidden rounded-[24px] border border-[#D8E5FF] bg-white shadow-[0_8px_28px_rgba(11,23,57,0.045)]">
                   {item.image && (
-                    <div className="relative aspect-[16/7] overflow-hidden border-b border-[#D8E5FF] bg-[#EAF1FF]">
-                      <Image src={item.image.src} alt={item.image.alt} fill sizes="(min-width: 1024px) 64rem, 100vw" className="object-cover object-center" />
-                    </div>
+                    item.image.preserveAspectRatio ? (
+                      <div className="border-b border-[#D8E5FF] bg-[#F4F8FF] p-4 sm:p-8">
+                        <Link
+                          href={item.image.href ?? item.image.src}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View larger: ${item.image.alt}`}
+                          className="mx-auto block max-w-2xl overflow-hidden rounded-xl bg-white shadow-[0_14px_40px_rgba(11,23,57,0.12)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF] motion-reduce:transform-none motion-reduce:transition-none"
+                        >
+                          <Image
+                            src={item.image.src}
+                            alt={item.image.alt}
+                            width={item.image.width ?? 1360}
+                            height={item.image.height ?? 1760}
+                            sizes="(min-width: 1024px) 42rem, 100vw"
+                            className="h-auto w-full"
+                          />
+                        </Link>
+                      </div>
+                    ) : (
+                      <div className="relative aspect-[16/7] overflow-hidden border-b border-[#D8E5FF] bg-[#EAF1FF]">
+                        <Image src={item.image.src} alt={item.image.alt} fill sizes="(min-width: 1024px) 64rem, 100vw" className="object-cover object-center" />
+                      </div>
+                    )
                   )}
                   <div className="p-7 sm:p-8">
                     <div className="flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-[0.14em] text-[#1E40AF]">
@@ -58,6 +79,11 @@ export function NewsTimeline({ items }: { items: NewsItem[] }) {
                     </div>
                     <h3 className="mt-4 text-xl font-semibold text-[#0B1739]">{item.title}</h3>
                     <p className="mt-3 text-sm leading-7 text-[#34435E]">{item.summary}</p>
+                    {item.details && (
+                      <ul className="mt-5 grid gap-2 border-l-2 border-[#BFD3FB] pl-4 text-sm leading-6 text-[#34435E]">
+                        {item.details.map((detail) => <li key={detail}>{detail}</li>)}
+                      </ul>
+                    )}
                     {item.href && (
                       <Link href={item.href} className="mt-6 inline-flex items-center text-sm font-semibold text-[#1E40AF] transition-colors hover:text-[#17358F] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF]">
                         {item.linkLabel ?? "Read more"}<ArrowRight size={16} className="ml-2" aria-hidden="true" />

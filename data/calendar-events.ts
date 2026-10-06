@@ -12,6 +12,9 @@ export type CalendarEvent = {
   recurring?: boolean;
   personSlug?: string;
   description?: string;
+  time?: string;
+  location?: string;
+  categoryLabel?: string;
   href?: string;
   showOnCalendar: boolean;
   homepageCelebration?: boolean;
@@ -83,7 +86,20 @@ export const websiteAnniversary: CalendarEvent = {
   homepageCelebration: true,
 };
 
-export const calendarEvents: CalendarEvent[] = [...birthdayEvents, afsinsDay, websiteAnniversary, ...archiveEvents];
+export const sunyDownstateSeminar: CalendarEvent = {
+  id: "sei-higuchi-suny-downstate-seminar-2026",
+  title: "Dr. Sei Higuchi — SUNY Downstate Seminar",
+  type: "presentation",
+  date: "2026-10-07",
+  time: "12:00 PM",
+  categoryLabel: "Presentation / Research & Conferences",
+  location: "SUNY Downstate Health Sciences University, Health Science Education Building – Lecture Hall 1B",
+  description: "Talk: ‘Python snake-specific bile acid, pythocholic acid, regulates glucose homeostasis and mitochondrial function through PPARα signaling in mice.’",
+  href: "/news",
+  showOnCalendar: true,
+};
+
+export const calendarEvents: CalendarEvent[] = [...birthdayEvents, afsinsDay, websiteAnniversary, sunyDownstateSeminar, ...archiveEvents];
 
 export const calendarTypeLabels: Record<CalendarEventType, string> = {
   birthday: "Birthdays",

@@ -121,7 +121,7 @@ export function LabCalendar() {
       </div>
       <aside className="self-start rounded-[28px] border border-[#D8E5FF] bg-[#0B1739] p-6 text-white shadow-[0_20px_48px_rgba(11,23,57,0.12)]">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-200">Upcoming</p>
-        <ol className="mt-5 space-y-5">{upcoming.map(({ event, date }) => <li key={event.id} className="border-b border-white/10 pb-5 last:border-0 last:pb-0"><p className="text-xs font-semibold text-blue-200">{new Date(`${date}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</p>{event.href ? <Link href={event.href} className="mt-1 block font-semibold hover:text-blue-200">{event.title}</Link> : <p className="mt-1 font-semibold">{event.title}</p>}<p className="mt-1 text-xs text-blue-100/65">{calendarTypeLabels[event.type]}</p></li>)}</ol>
+        <ol className="mt-5 space-y-5">{upcoming.map(({ event, date }) => <li key={event.id} className="border-b border-white/10 pb-5 last:border-0 last:pb-0"><p className="text-xs font-semibold text-blue-200">{new Date(`${date}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" })}{event.time ? ` · ${event.time}` : ""}</p>{event.href ? <Link href={event.href} className="mt-1 block font-semibold hover:text-blue-200">{event.title}</Link> : <p className="mt-1 font-semibold">{event.title}</p>}<p className="mt-1 text-xs text-blue-100/65">{event.categoryLabel ?? calendarTypeLabels[event.type]}</p>{event.location && <p className="mt-2 text-xs leading-5 text-blue-100/80">{event.location}</p>}{event.description && <p className="mt-2 text-xs leading-5 text-blue-100/70">{event.description}</p>}</li>)}</ol>
       </aside>
     </div>
   );

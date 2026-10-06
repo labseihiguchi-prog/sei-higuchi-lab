@@ -1,4 +1,4 @@
-export const newsCategories = ["All", "Publications", "Conferences", "Awards", "Students", "Outreach", "Lab Updates"] as const;
+export const newsCategories = ["All", "Publications", "Research & Conferences", "Awards", "Students", "Outreach", "Lab Updates"] as const;
 
 export type NewsCategory = Exclude<(typeof newsCategories)[number], "All">;
 
@@ -14,10 +14,39 @@ export type NewsItem = {
   image?: {
     src: string;
     alt: string;
+    width?: number;
+    height?: number;
+    href?: string;
+    preserveAspectRatio?: boolean;
   };
+  details?: string[];
 };
 
 export const newsItems: NewsItem[] = [
+  {
+    id: "sei-higuchi-suny-downstate-seminar-2026",
+    title: "Dr. Sei Higuchi to Present at SUNY Downstate",
+    summary: "Dr. Sei Higuchi will present a Molecular & Cellular Biology Seminar at SUNY Downstate Health Sciences University on October 7, 2026. His talk, ‘Python snake-specific bile acid, pythocholic acid, regulates glucose homeostasis and mitochondrial function through PPARα signaling in mice,’ will highlight the Higuchi Lab’s research into the metabolic functions of python-derived bile acids.",
+    category: "Research & Conferences",
+    publishedAt: "2026-10-07",
+    displayDate: "October 7, 2026",
+    details: [
+      "Wednesday, October 7, 2026",
+      "12:00 PM",
+      "SUNY Downstate Health Sciences University",
+      "Health Science Education Building – Lecture Hall 1B",
+      "Molecular & Cellular Biology Seminar",
+      "Sponsored by the School of Graduate Studies",
+    ],
+    image: {
+      src: "/images/news/sei-higuchi-suny-downstate-seminar-2026.png",
+      alt: "Official flyer for Dr. Sei Higuchi’s Molecular & Cellular Biology Seminar at SUNY Downstate Health Sciences University.",
+      width: 1360,
+      height: 1760,
+      href: "/files/sei-higuchi-suny-downstate-seminar-2026.pdf",
+      preserveAspectRatio: true,
+    },
+  },
   {
     id: "sei-higuchi-lab-website-launch-2026",
     title: "Sei Higuchi Lab Website Officially Launches",
