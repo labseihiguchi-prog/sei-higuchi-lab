@@ -17,6 +17,7 @@ import { nyspetPhotos } from "@/data/nyspet-gallery";
 import { rapidResearchGallery, rapidResearchPhotos, rapidResearchPhotoBoothGallery } from "@/data/rapid-research-gallery";
 import { sidoRestaurantUrl } from "@/data/site-config";
 import { afsinDayPhotos } from "@/data/afsin-day-gallery";
+import { sunyDownstateCover, sunyDownstatePhotos } from "@/data/suny-downstate-gallery";
 
 export const labEventCategories = [
   "Research & Conferences",
@@ -134,6 +135,39 @@ const awardsGallery = [
 const researchLeaderGallery = ["research-week-457.webp", "dsc-1436.webp"].map(image);
 
 const labEventsUnsorted: LabEvent[] = [
+  {
+    slug: "2026-suny-downstate-seminar",
+    title: "Dr. Sei Higuchi Presents at SUNY Downstate",
+    startDate: "2026-10-07",
+    endDate: "2026-10-07",
+    displayDate: "October 7, 2026",
+    year: 2026,
+    location: "SUNY Downstate Health Sciences University, Brooklyn, New York",
+    categories: ["Research & Conferences"],
+    shortDescription:
+      "On October 7, 2026, Dr. Sei Higuchi visited SUNY Downstate Health Sciences University to present his research on python-derived bile acids, metabolic regulation, and their potential roles in glucose homeostasis and mitochondrial function.",
+    introduction: [
+      "On October 7, 2026, Dr. Sei Higuchi visited SUNY Downstate Health Sciences University to present his research on python-derived bile acids, metabolic regulation, and their potential roles in glucose homeostasis and mitochondrial function.",
+      "The seminar was held at the invitation of Dr. Takahiko Murayama, Assistant Professor in the Department of Cell Biology at SUNY Downstate.",
+      "The visit provided an opportunity to share the Higuchi Lab’s research, exchange scientific perspectives, and strengthen connections between researchers at St. John’s University and SUNY Downstate.",
+    ],
+    heroImage: sunyDownstateCover,
+    preserveImageOrientation: true,
+    featured: false,
+    sections: [
+      {
+        eyebrow: "Research & Conferences",
+        title: "Highlights from the SUNY Downstate Visit",
+        date: "2026-10-07",
+        description:
+          "Photographs from Dr. Sei Higuchi’s seminar and visit to SUNY Downstate Health Sciences University.",
+        mainImage: sunyDownstateCover,
+        gallery: sunyDownstatePhotos,
+        kind: "gallery",
+      },
+    ],
+    gallery: sunyDownstatePhotos,
+  },
   {
     slug: "2026-celebrating-afsin-new-chapter",
     title: "Celebrating Afsin & a New Chapter for the Higuchi Lab",

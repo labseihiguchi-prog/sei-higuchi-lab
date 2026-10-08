@@ -1,4 +1,4 @@
-import type { LabGalleryImage } from "@/data/lab-events";
+import { sunyDownstateCover } from "@/data/suny-downstate-gallery";
 
 export const newsCategories = ["All", "Publications", "Research & Conferences", "Awards", "Students", "Outreach", "Lab Updates"] as const;
 
@@ -31,9 +31,9 @@ export type NewsItem = {
   };
   details?: string[];
   paragraphs?: NewsParagraph[];
-  gallery?: {
-    heading: string;
-    images: LabGalleryImage[];
+  document?: {
+    href: string;
+    label: string;
   };
 };
 
@@ -67,48 +67,15 @@ export const newsItems: NewsItem[] = [
       "Sponsored by the School of Graduate Studies",
     ],
     image: {
-      src: "/images/news/sei-higuchi-suny-downstate-seminar-2026.png",
-      alt: "Official flyer for Dr. Sei Higuchi’s Molecular & Cellular Biology Seminar at SUNY Downstate Health Sciences University.",
-      width: 1360,
-      height: 1760,
-      href: "/files/sei-higuchi-suny-downstate-seminar-2026.pdf",
+      ...sunyDownstateCover,
       preserveAspectRatio: true,
     },
-    gallery: {
-      heading: "Highlights from the SUNY Downstate Visit",
-      images: [
-        {
-          src: "/images/news/suny-downstate-seminar-2026/17539.jpg",
-          alt: "Dr. Sei Higuchi and two SUNY Downstate colleagues standing in front of a projected presentation slide about pythons as research animals.",
-          width: 4080,
-          height: 3060,
-        },
-        {
-          src: "/images/news/suny-downstate-seminar-2026/17540.jpg",
-          alt: "Three researchers standing together in the SUNY Downstate seminar room after Dr. Sei Higuchi’s presentation.",
-          width: 4080,
-          height: 3060,
-        },
-        {
-          src: "/images/news/suny-downstate-seminar-2026/17541.jpg",
-          alt: "Three researchers smiling together in front of the projected python research slide at SUNY Downstate.",
-          width: 4080,
-          height: 3060,
-        },
-        {
-          src: "/images/news/suny-downstate-seminar-2026/IMG_1288.jpg",
-          alt: "Dr. Sei Higuchi presenting research beside a projected image during the SUNY Downstate seminar.",
-          width: 5712,
-          height: 4284,
-        },
-        {
-          src: "/images/news/suny-downstate-seminar-2026/IMG_1287.jpg",
-          alt: "Dr. Sei Higuchi introducing his research presentation at SUNY Downstate Health Sciences University.",
-          width: 5712,
-          height: 4284,
-        },
-      ],
+    document: {
+      href: "/files/sei-higuchi-suny-downstate-seminar-2026.pdf",
+      label: "View the original seminar flyer (PDF)",
     },
+    href: "/life-in-the-lab/2026-suny-downstate-seminar",
+    linkLabel: "View Event Photos",
   },
   {
     id: "sei-higuchi-lab-website-launch-2026",

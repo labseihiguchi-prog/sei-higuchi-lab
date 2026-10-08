@@ -3,8 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CalendarDays } from "lucide-react";
-import { EventPhotoGallery } from "@/components/event-photo-gallery";
+import { ArrowRight, CalendarDays, FileText } from "lucide-react";
 import { newsCategories, type NewsItem } from "@/data/news";
 import { cn } from "@/lib/utils";
 
@@ -105,25 +104,21 @@ export function NewsTimeline({ items }: { items: NewsItem[] }) {
                         {item.details.map((detail) => <li key={detail}>{detail}</li>)}
                       </ul>
                     )}
+                    {item.document && (
+                      <a
+                        href={item.document.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-6 inline-flex items-center gap-2 rounded-lg text-sm font-semibold text-[#34435E] underline decoration-[#BFD3FB] underline-offset-4 transition-colors hover:text-[#1E40AF] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF]"
+                      >
+                        <FileText size={16} className="text-[#1E40AF]" aria-hidden="true" />
+                        {item.document.label}
+                      </a>
+                    )}
                     {item.href && (
-                      <Link href={item.href} className="mt-6 inline-flex items-center text-sm font-semibold text-[#1E40AF] transition-colors hover:text-[#17358F] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF]">
+                      <Link href={item.href} className="mt-6 ml-0 inline-flex items-center text-sm font-semibold text-[#1E40AF] transition-colors hover:text-[#17358F] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF] sm:ml-6">
                         {item.linkLabel ?? "Read more"}<ArrowRight size={16} className="ml-2" aria-hidden="true" />
                       </Link>
-                    )}
-                    {item.gallery && (
-                      <section className="mt-10 border-t border-[#D8E5FF] pt-8" aria-labelledby={`${item.id}-gallery-heading`}>
-                        <h4 id={`${item.id}-gallery-heading`} className="text-lg font-semibold tracking-tight text-[#0B1739] sm:text-xl">
-                          {item.gallery.heading}
-                        </h4>
-                        <div className="mt-5">
-                          <EventPhotoGallery
-                            images={item.gallery.images}
-                            label={item.gallery.heading}
-                            preserveOrientation
-                            featureFirst
-                          />
-                        </div>
-                      </section>
                     )}
                   </div>
                 </article>
