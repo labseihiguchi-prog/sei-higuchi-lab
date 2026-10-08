@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CalendarDays } from "lucide-react";
+import { EventPhotoGallery } from "@/components/event-photo-gallery";
 import { newsCategories, type NewsItem } from "@/data/news";
 import { cn } from "@/lib/utils";
 
@@ -44,7 +45,7 @@ export function NewsTimeline({ items }: { items: NewsItem[] }) {
             {filteredItems.map((item) => (
               <li key={item.id} className="relative pb-12 last:pb-0">
                 <span aria-hidden="true" className="absolute -left-[2.6rem] top-2 h-4 w-4 rounded-full bg-[#1E40AF] ring-8 ring-[#E8F0FF] sm:-left-[3.55rem]" />
-                <article className="overflow-hidden rounded-[24px] border border-[#D8E5FF] bg-white shadow-[0_8px_28px_rgba(11,23,57,0.045)]">
+                <article id={item.id} className="scroll-mt-28 overflow-hidden rounded-[24px] border border-[#D8E5FF] bg-white shadow-[0_8px_28px_rgba(11,23,57,0.045)]">
                   {item.image && (
                     item.image.preserveAspectRatio ? (
                       <div className="border-b border-[#D8E5FF] bg-[#F4F8FF] p-4 sm:p-8">
@@ -79,6 +80,26 @@ export function NewsTimeline({ items }: { items: NewsItem[] }) {
                     </div>
                     <h3 className="mt-4 text-xl font-semibold text-[#0B1739]">{item.title}</h3>
                     <p className="mt-3 text-sm leading-7 text-[#34435E]">{item.summary}</p>
+                    {item.paragraphs?.map((paragraph) => (
+                      <p key={"text" in paragraph ? paragraph.text : paragraph.link.href} className="mt-3 text-sm leading-7 text-[#34435E]">
+                        {"text" in paragraph ? (
+                          paragraph.text
+                        ) : (
+                          <>
+                            {paragraph.before}
+                            <a
+                              href={paragraph.link.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="font-semibold text-[#1E40AF] underline decoration-[#9DB9EE] underline-offset-4 transition-colors hover:text-[#17358F] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#1E40AF]"
+                            >
+                              {paragraph.link.label}
+                            </a>
+                            {paragraph.after}
+                          </>
+                        )}
+                      </p>
+                    ))}
                     {item.details && (
                       <ul className="mt-5 grid gap-2 border-l-2 border-[#BFD3FB] pl-4 text-sm leading-6 text-[#34435E]">
                         {item.details.map((detail) => <li key={detail}>{detail}</li>)}
@@ -88,6 +109,21 @@ export function NewsTimeline({ items }: { items: NewsItem[] }) {
                       <Link href={item.href} className="mt-6 inline-flex items-center text-sm font-semibold text-[#1E40AF] transition-colors hover:text-[#17358F] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1E40AF]">
                         {item.linkLabel ?? "Read more"}<ArrowRight size={16} className="ml-2" aria-hidden="true" />
                       </Link>
+                    )}
+                    {item.gallery && (
+                      <section className="mt-10 border-t border-[#D8E5FF] pt-8" aria-labelledby={`${item.id}-gallery-heading`}>
+                        <h4 id={`${item.id}-gallery-heading`} className="text-lg font-semibold tracking-tight text-[#0B1739] sm:text-xl">
+                          {item.gallery.heading}
+                        </h4>
+                        <div className="mt-5">
+                          <EventPhotoGallery
+                            images={item.gallery.images}
+                            label={item.gallery.heading}
+                            preserveOrientation
+                            featureFirst
+                          />
+                        </div>
+                      </section>
                     )}
                   </div>
                 </article>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 import type { LabGalleryImage } from "@/data/lab-events";
 
-export function EventPhotoGallery({ images, label, preserveOrientation = false, celebrationBackdrop = false }: { images: LabGalleryImage[]; label: string; preserveOrientation?: boolean; celebrationBackdrop?: boolean }) {
+export function EventPhotoGallery({ images, label, preserveOrientation = false, celebrationBackdrop = false, featureFirst = false }: { images: LabGalleryImage[]; label: string; preserveOrientation?: boolean; celebrationBackdrop?: boolean; featureFirst?: boolean }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -41,7 +41,7 @@ export function EventPhotoGallery({ images, label, preserveOrientation = false, 
           return (
             <li
               key={photo.src}
-              className={preserveOrientation ? "" : `${feature ? "col-span-2 row-span-2 lg:col-span-7" : wide ? "col-span-2 lg:col-span-7" : "col-span-1 lg:col-span-5"}`}
+              className={preserveOrientation ? (featureFirst && index === 0 ? "sm:col-span-2" : "") : `${feature ? "col-span-2 row-span-2 lg:col-span-7" : wide ? "col-span-2 lg:col-span-7" : "col-span-1 lg:col-span-5"}`}
             >
               <button
                 type="button"

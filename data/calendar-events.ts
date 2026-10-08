@@ -95,7 +95,7 @@ export const sunyDownstateSeminar: CalendarEvent = {
   categoryLabel: "Presentation / Research & Conferences",
   location: "SUNY Downstate Health Sciences University, Health Science Education Building – Lecture Hall 1B",
   description: "Talk: ‘Python snake-specific bile acid, pythocholic acid, regulates glucose homeostasis and mitochondrial function through PPARα signaling in mice.’",
-  href: "/news",
+  href: "/news#sei-higuchi-suny-downstate-seminar-2026",
   showOnCalendar: true,
 };
 
